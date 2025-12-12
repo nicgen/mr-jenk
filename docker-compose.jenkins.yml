@@ -1,0 +1,23 @@
+services:
+  jenkins:
+    build:
+      context: ./jenkins
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "8088:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik_net
+    user: root # Needed to access /var/run/docker.sock if permission issues arise, otherwise might need group adjustment
+
+volumes:
+  jenkins_home:
+
+
+networks:
+  traefik_net:
+    external: true

@@ -1,0 +1,47 @@
+<div class="cart-container">
+    <h1>Shopping Cart</h1>
+
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+        <p>Your cart is empty.</p>
+        <button mat-raised-button color="primary" routerLink="/products">Continue Shopping</button>
+    </div>
+
+    <div *ngIf="cartItems.length > 0" class="cart-content">
+        <mat-card class="cart-items">
+            <mat-list>
+                <mat-list-item *ngFor="let item of cartItems">
+                    <div class="cart-item">
+                        <div *ngIf="item.imageUrl" class="image-container">
+                            <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image">
+                        </div>
+                        <div *ngIf="!item.imageUrl" class="image-placeholder">
+                            <mat-icon>image_not_supported</mat-icon>
+                        </div>
+                        <div class="item-details">
+                            <span class="item-name">{{ item.name }}</span>
+                            <span class="item-price">${{ item.price }} x {{ item.quantity }}</span>
+                        </div>
+                        <button mat-icon-button color="warn" (click)="removeFromCart(item.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </mat-card>
+
+        <mat-card class="cart-summary">
+            <mat-card-header>
+                <mat-card-title>Summary</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="total">
+                    <span>Total:</span>
+                    <span>${{ total }}</span>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" class="full-width" (click)="checkout()">Checkout</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
