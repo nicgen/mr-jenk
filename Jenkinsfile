@@ -36,7 +36,8 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh 'npm install'
-                    sh 'ng test --watch=false --browsers=ChromeHeadless'
+                    // Run tests using the local ng installed by npm
+                    sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
                 }
             }
         }
