@@ -1,6 +1,7 @@
 # Secrets (do not commit)
 .env
 .env.*
+!.env.template
 *.key
 *.pem
 secrets/

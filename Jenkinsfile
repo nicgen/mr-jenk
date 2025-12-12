@@ -66,7 +66,7 @@ pipeline {
         }
         success {
             echo 'Pipeline succeeded!'
-            mail to: 'admin@mr-jenk.com',
+            mail to: "${env.ADMIN_EMAIL}", // Set this in Jenkins Global configuration
                  subject: "✅ Build Succeeded: ${currentBuild.fullDisplayName}",
                  body: """
                  Great news! The build was successful.
@@ -78,7 +78,7 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed!'
-            mail to: 'admin@mr-jenk.com',
+            mail to: "${env.ADMIN_EMAIL}", // Set this in Jenkins Global configuration
                  subject: "❌ Build Failed: ${currentBuild.fullDisplayName}",
                  body: """
                  The build has failed. Please investigate.

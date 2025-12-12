@@ -33,7 +33,7 @@ services:
       - mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.buy01-users.rule=Host(`api.local.hello-there.net`) && PathPrefix(`/api/auth`)"
+      - "traefik.http.routers.buy01-users.rule=Host(`api.${DOMAIN_NAME}`) && PathPrefix(`/api/auth`)"
       - "traefik.http.routers.buy01-users.entrypoints=websecure"
       - "traefik.http.routers.buy01-users.tls.certresolver=cloudflare"
       - "traefik.http.services.buy01-users.loadbalancer.server.port=8081"
@@ -47,7 +47,7 @@ services:
       - mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.buy01-products.rule=Host(`api.local.hello-there.net`) && PathPrefix(`/api/products`)"
+      - "traefik.http.routers.buy01-products.rule=Host(`api.${DOMAIN_NAME}`) && PathPrefix(`/api/products`)"
       - "traefik.http.routers.buy01-products.entrypoints=websecure"
       - "traefik.http.routers.buy01-products.tls.certresolver=cloudflare"
       - "traefik.http.services.buy01-products.loadbalancer.server.port=8082"
@@ -61,7 +61,7 @@ services:
       - mongodb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.buy01-media.rule=Host(`api.local.hello-there.net`) && PathPrefix(`/api/media`)"
+      - "traefik.http.routers.buy01-media.rule=Host(`api.${DOMAIN_NAME}`) && PathPrefix(`/api/media`)"
       - "traefik.http.routers.buy01-media.entrypoints=websecure"
       - "traefik.http.routers.buy01-media.tls.certresolver=cloudflare"
       - "traefik.http.services.buy01-media.loadbalancer.server.port=8083"
@@ -77,7 +77,7 @@ services:
       - media-service
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.buy01-frontend.rule=Host(`app.local.hello-there.net`)"
+      - "traefik.http.routers.buy01-frontend.rule=Host(`app.${DOMAIN_NAME}`)"
       - "traefik.http.routers.buy01-frontend.entrypoints=websecure"
       - "traefik.http.routers.buy01-frontend.tls.certresolver=cloudflare"
       - "traefik.http.services.buy01-frontend.loadbalancer.server.port=80"
