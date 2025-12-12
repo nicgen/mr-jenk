@@ -33,6 +33,9 @@ pipeline {
         }
 
         stage('Test Frontend') {
+            environment {
+                CHROME_BIN = '/usr/bin/google-chrome-stable'
+            }
             steps {
                 dir('frontend') {
                     sh 'npm install'

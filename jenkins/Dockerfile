@@ -26,17 +26,15 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 RUN npm install -g @angular/cli
 
 # Install Google Chrome for Headless testing
-RUN apt-get update && apt-get install -y wget gnupg2 curl && \
-    mkdir -p /usr/share/keyrings && \
-    curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update && \
-    apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
-    --no-install-recommends && \
+RUN apt-get update && apt-get install -y wget && \
+    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get install -y ./google-chrome-stable_current_amd64.deb && \
+    rm google-chrome-stable_current_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
 # Set CHROME_BIN for Karma
-ENV CHROME_BIN=/usr/bin/google-chrome
+# ENV CHROME_BIN=/usr/bin/google-chrome
+ENV CHROME_BIN=/usr/bin/google-chrome-stable
 
 # Verify installations
 RUN mvn -version && node -v && npm -v
