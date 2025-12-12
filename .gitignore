@@ -63,3 +63,4 @@ audit_assets/
 /*.png
 frontend/src/assets/*.jpg
 frontend/src/assets/*.png
+.vscode/
