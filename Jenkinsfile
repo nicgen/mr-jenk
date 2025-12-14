@@ -66,29 +66,37 @@ pipeline {
         }
         success {
             echo 'Pipeline succeeded!'
-            mail to: "${env.ADMIN_EMAIL}", // Set this in Jenkins Global configuration
-                 subject: "✅ Build Succeeded: ${currentBuild.fullDisplayName}",
-                 body: """
-                 Great news! The build was successful.
-                 
-                 Project: ${env.JOB_NAME}
-                 Build Number: ${env.BUILD_NUMBER}
-                 URL: ${env.BUILD_URL}
-                 """
+            script {
+               def emailTo = env.ADMIN_EMAIL ?: 'admin@mr-jenk.com'
+               echo "Sending success email to ${emailTo}"
+               mail to: emailTo,
+                    subject: "✅ Build Succeeded: ${currentBuild.fullDisplayName}",
+                    body: """
+                    Great news! The build was successful.
+                    
+                    Project: ${env.JOB_NAME}
+                    Build Number: ${env.BUILD_NUMBER}
+                    URL: ${env.BUILD_URL}
+                    """
+            }
         }
         failure {
             echo 'Pipeline failed!'
-            mail to: "${env.ADMIN_EMAIL}", // Set this in Jenkins Global configuration
-                 subject: "❌ Build Failed: ${currentBuild.fullDisplayName}",
-                 body: """
-                 The build has failed. Please investigate.
-                 
-                 Project: ${env.JOB_NAME}
-                 Build Number: ${env.BUILD_NUMBER}
-                 URL: ${env.BUILD_URL}
-                 
-                 Check the console logs for errors.
-                 """
+            script {
+               def emailTo = env.ADMIN_EMAIL ?: 'admin@mr-jenk.com'
+               echo "Sending failure email to ${emailTo}"
+               mail to: emailTo,
+                    subject: "❌ Build Failed: ${currentBuild.fullDisplayName}",
+                    body: """
+                    The build has failed. Please investigate.
+                    
+                    Project: ${env.JOB_NAME}
+                    Build Number: ${env.BUILD_NUMBER}
+                    URL: ${env.BUILD_URL}
+                    
+                    Check the console logs for errors.
+                    """
+            }
         }
     }
 }

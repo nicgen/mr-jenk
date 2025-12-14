@@ -18,6 +18,10 @@ services:
       - "traefik.http.routers.jenkins.entrypoints=websecure"
       - "traefik.http.routers.jenkins.tls.certresolver=cloudflare"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
+    environment:
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false # Optional: helps automated setup, but strictly we just need the vars above
     user: root # Needed to access /var/run/docker.sock if permission issues arise, otherwise might need group adjustment
 
 volumes:
