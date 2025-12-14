@@ -67,7 +67,7 @@ pipeline {
         success {
             echo 'Pipeline succeeded!'
             script {
-               def emailTo = env.ADMIN_EMAIL ?: 'admin@mr-jenk.com'
+               def emailTo = env.ADMIN_EMAIL ?: 'email@example.com'
                echo "Sending success email to ${emailTo}"
                mail to: emailTo,
                     subject: "✅ Build Succeeded: ${currentBuild.fullDisplayName}",
@@ -83,7 +83,7 @@ pipeline {
         failure {
             echo 'Pipeline failed!'
             script {
-               def emailTo = env.ADMIN_EMAIL ?: 'admin@mr-jenk.com'
+               def emailTo = env.ADMIN_EMAIL ?: 'email@example.com'
                echo "Sending failure email to ${emailTo}"
                mail to: emailTo,
                     subject: "❌ Build Failed: ${currentBuild.fullDisplayName}",
